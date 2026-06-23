@@ -1,5 +1,9 @@
 ---
+// Importing TailWind
+import '../styles/global.css'
 
+const jmeno = "Benedikt Janda"
+const dovednosti = ["Fyzika", "Python"]
 ---
 
 <html lang="en">
@@ -11,7 +15,16 @@
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
 	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+	<body class="bg-slate-900 text-white font-sans">
+    <main class="max-w-4xl mx-auto p-8">
+      	<h1 class="text-4xl font-bold text-sky-400">Ahoj, já jsem {jmeno}</h1>
+      	<p class="mt-4 text-slate-400">Vítej na mém webu.</p>
+      
+      	<ul class="mt-6 flex gap-4">
+			{dovednosti.map((skill) => (
+			<li class="bg-slate-800 px-3 py-1 rounded text-sm">{skill}</li>
+			))}
+      	</ul>
+    </main>
+  </body>
 </html>
