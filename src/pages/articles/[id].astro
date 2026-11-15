@@ -1,0 +1,30 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+    const articles = await getCollection('articles');
+    return articles.map((article) => ({
+        params: { id: article.id },
+        props: { article },
+    }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>{article.data.title}</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+    </head>
+    <body>
+        <a href={`${base}/articles/`} ><- All articles</a>
+        <h1>{article.data.title}</h1>
+        <p>{article.data.date.toISOString().slice(0, 10)}</p>
+        <Content />
+    </body>
+</html>
