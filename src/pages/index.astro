@@ -2,15 +2,51 @@
 // Importing TailWind
 import '../styles/global.css'
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const jmeno = "Benedikt Janda";
-const dovednosti = ["Fyzika", "Python"];
+const recent = (await getCollection('articles'))
+	.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+	.slice(0,3);
 ---
 
-<Layout title="Home">
-	<h1>Benedikt Janda</h1>
-	<p>Short intro about me and my research.</p>
+<Layout title="Benedikt Janda - Physics">
+	
+	<section class="mb-8">
+		<h1>Benedikt Janda</h1>
+		<p>
+			Master's student of Theoretical Physics (ITP) and Particle and Nuclear Physics (IPNP)
+			at the Faculty of Mathematics and Physics, Charles University.
+		</p>
+	</section>
+
+	<section class="mb-8">
+		<h2 class="mb-2 text-xl font-bold">About my research</h2>
+		<p>
+			I am currently writing two master's theses: one in particle physcis on scattering amplitudes in the extended nonlinear sigma model (NLSM), and one in theoretical physics on tidal disruption events. I am also working on a project in numerical stochastic thermodynamics. My main interest is theoretical particle physics, in particular quantum gravitaty.
+		</p>
+	</section>
+
+	<section class="mb-8">
+		<h2 class="mb-2 text-xl font-bold">Recent articles</h2>
+		<ul>
+			{recent.map((a) => (
+				<li>
+					<a href={`${base}/articles/${a.id}/`}>{a.data.title}</a>
+					- {a.data.date.toISOString().slice(0, 10)}
+				</li>
+			))}
+		</ul>
+		<p class="mt-2"><a href={`${base}/articles/`}>All articles</a></p>
+	</section>
+
+	<section class="mb-8">
+		<h2 class="mb-2 text-xl font-bold">Contact</h2>
+		<ul>
+			<li>Email: name [at] domain</li>
+			<li><a href="https://orcid.org/">ORCID</a></li>
+		</ul>
+	</section>
 </Layout>
 
 <!-- <html lang="en">
