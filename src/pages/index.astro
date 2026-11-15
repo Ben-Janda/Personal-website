@@ -1,13 +1,19 @@
 ---
 // Importing TailWind
 import '../styles/global.css'
+import Layout from '../layouts/Layout.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const jmeno = "Benedikt Janda";
 const dovednosti = ["Fyzika", "Python"];
 ---
 
-<html lang="en">
+<Layout title="Home">
+	<h1>Benedikt Janda</h1>
+	<p>Short intro about me and my research.</p>
+</Layout>
+
+<!-- <html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -28,4 +34,4 @@ const dovednosti = ["Fyzika", "Python"];
       	</ul>
     </main>
   </body>
-</html>
+</html> -->
